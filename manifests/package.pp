@@ -36,6 +36,11 @@ define android::package($type) {
       
       $creates = "${android::paths::sdk_home}/build-tools/${title_parts[2]}"
     }
+    'extra': {
+      $creates_path = inline_template("<%= title.split('-').drop(1).join('/') %>")
+      
+      $creates = "${android::paths::sdk_home}/extras/${creates_path}"
+    }
     default: {
       fail("Unsupported package type: ${type}")
     }
